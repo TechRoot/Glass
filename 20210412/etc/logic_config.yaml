@@ -1,0 +1,6 @@
+default_variables: [A, B, C]
+max_variables: 4
+timing:
+  launch: 10.0
+  delay: 3.0
+  setup: 2.0

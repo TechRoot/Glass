@@ -1,0 +1,65 @@
+(*
+    Programa de control simple para una máquina de estados que gestiona
+    una doble pulsación y verifica un bit de paridad. El propósito es
+    ilustrar cómo se integran las funciones de lógica booleana en un
+    autómata en Structured Text. Se utilizan nombres de señales genéricos
+    para mantener la independencia del dominio de aplicación.
+*)
+
+PROGRAM FSMParidad
+VAR
+    (* Entradas de botones y datos *)
+    StartButton1 AT %I*: BOOL;
+    StartButton2 AT %I*: BOOL;
+    DataWord    AT %I*: WORD; (* Datos de los que se calcula la paridad *)
+    ArmState    : BOOL := FALSE; (* Indica si la máquina ya está armada *)
+
+    (* Salidas *)
+    OkSignal    AT %Q*: BOOL;
+    ErrorSignal AT %Q*: BOOL;
+
+    (* Variables internas *)
+    parityBit   : BOOL;
+END_VAR
+
+(* Función para calcular la paridad impar de una palabra de 16 bits *)
+FUNCTION Parity : BOOL
+VAR_INPUT
+    w : WORD;
+END_VAR
+VAR
+    i : INT;
+    acc : BOOL := FALSE;
+END_VAR
+FOR i := 0 TO 15 DO
+    acc := acc XOR BOOL_TO_BOOL(SHR(w, i) AND 1);
+END_FOR
+Parity := acc;
+
+(* Máquina de estados simple *)
+IF NOT ArmState THEN
+    (* Estado IDLE: espera doble pulsación *)
+    IF StartButton1 AND StartButton2 THEN
+        ArmState := TRUE;
+        OkSignal := TRUE;
+        ErrorSignal := FALSE;
+    ELSE
+        OkSignal := FALSE;
+        ErrorSignal := FALSE;
+    END_IF;
+ELSE
+    (* Estado ARM: calcula paridad y decide transición *)
+    parityBit := Parity(DataWord);
+    IF parityBit THEN
+        (* Paridad impar, todo correcto, vuelve a IDLE *)
+        ArmState := FALSE;
+        OkSignal := FALSE;
+        ErrorSignal := FALSE;
+    ELSE
+        (* Paridad par, señal de error *)
+        OkSignal := FALSE;
+        ErrorSignal := TRUE;
+    END_IF;
+END_IF;
+
+END_PROGRAM

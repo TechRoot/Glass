@@ -1,0 +1,12 @@
+# Configuración por defecto de pesos para evaluar técnicas
+
+# La clave `criteria` define el peso relativo de cada criterio a la hora
+# de calcular el índice global de una técnica.  La suma de los pesos
+# debe ser 1; si no lo es, el código normalizará automáticamente.  Los
+# criterios disponibles son: precision, cost, complexity y robustness.
+
+criteria:
+  precision: 0.4
+  cost: 0.3
+  complexity: 0.2
+  robustness: 0.1
