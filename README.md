@@ -1,10 +1,4 @@
-# Repositorio para aceptación de convalidación de asignaturas de Álgebra y Algoritmia.
-
-Colección de extractos de programación, bibliotecas y pequeños CLIs para lógica booleana, álgebra lineal y geometría,
-aritmética modular y códigos, y grafos. El foco está en ejecuciones reproducibles, entradas/salidas claras
-y comprobaciones automáticas.
-
-**Licencia privada — “Prohibido su uso”.**  No se ofrece soporte ni CI.
+# Repositorio privado, Extracto para UTAMED
 **Licencia privada — “Prohibido su uso”.**  Queda prohibida la copia, distribución o modificación no autorizadas.
 
 ---
