@@ -1,0 +1,1 @@
+"""Subpaquete que contiene módulos de algoritmos (ordenación, DP, retroceso)."""
